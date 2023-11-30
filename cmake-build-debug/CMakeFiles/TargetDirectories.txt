@@ -1,0 +1,3 @@
+/home/luana/Universidade/2ºAno/1ºSemestre/AED/ProjetoAED2/cmake-build-debug/CMakeFiles/ProjetoAED2.dir
+/home/luana/Universidade/2ºAno/1ºSemestre/AED/ProjetoAED2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/luana/Universidade/2ºAno/1ºSemestre/AED/ProjetoAED2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
