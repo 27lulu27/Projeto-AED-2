@@ -29,3 +29,19 @@ double Airport::getLatitude() const{
 double Airport::getLongitude() const{
     return longitude;
 }
+
+vector<Flight> Airport::getAdj() const {
+    return adj;
+}
+
+void Airport::addFlight(Airline airline, string target) {
+adj.push_back(Flight(airline, target));
+}
+
+void Airport::setvisited(const bool v) {
+    visited = v;
+}
+
+bool Airport::isvisited() {
+    return visited;
+}

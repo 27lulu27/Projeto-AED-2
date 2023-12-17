@@ -4,18 +4,15 @@
 #include <iostream>
 #include <string>
 #include "Airline.h"
-#include "Airport.h"
 using namespace std;
 
 class Flight{
     private:
-        Airport source, target;
+        string target;
         Airline airline;
     public:
-        Flight();
-        Flight(Airport source, Airport target, Airline airline);
-        Airport getSource();
-        Airport getTarget();
+        Flight(Airline airline, string target);
+        string getTarget();
         Airline getAirline();
 };
 
