@@ -21,5 +21,7 @@ public:
     void readFlights(const string &filename);
 
     Airline findAirline(const string& code) const;
+
+    void Fastconection(string source, string dest);
 };
 #endif //PROJETOAED2_SYSTEM_H

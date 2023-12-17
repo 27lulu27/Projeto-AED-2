@@ -75,4 +75,8 @@ void System::readFlights(const std::string& filename) {
     file.close();
 }
 
+void System::Fastconection(string source, string dest) {
+    g.quickestconnection(source, dest);
+}
+
 

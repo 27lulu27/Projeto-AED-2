@@ -13,4 +13,6 @@ add_executable(ProjetoAED2 src/main.cpp
         src/Graph.cpp
         src/System.h
         src/System.cpp
+        src/Menu.h
+        src/Menu.cpp
 )
