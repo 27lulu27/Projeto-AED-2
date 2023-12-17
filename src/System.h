@@ -13,5 +13,13 @@ private:
     vector<Airline> airlines;
 public:
     System();
+
+    void readAirlines(const string &filename);
+
+    void readAirports(const string &filename);
+
+    void readFlights(const string &filename);
+
+    Airline findAirline(const string& code) const;
 };
 #endif //PROJETOAED2_SYSTEM_H

@@ -13,5 +13,6 @@ public:
 Airport FindAirport(const string code) const;
 void newAirport(const Airport a);
 void addFlight(const string source, const string dest, Airline airline);
+vector<Airport> getairports();
 };
 #endif //PROJETOAED2_GRAPH_H

@@ -17,3 +17,7 @@ void graph::addFlight(const string source, const string dest, Airline airline) {
     auto asource = FindAirport(source);
     asource.addFlight(airline, dest);
 }
+
+vector<Airport> graph::getairports() {
+    return AirportSet;
+}
