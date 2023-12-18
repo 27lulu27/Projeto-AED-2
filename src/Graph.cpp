@@ -38,6 +38,7 @@ vector<string> graph::dfs(Airport source, Airport dest, vector<string> airportsc
             return airportscodes;
         }
     }
+    return {};
 }
 
 vector<string> graph::quickestconnection(string source, string dest) {
@@ -59,7 +60,7 @@ vector<string> graph::quickestconnection(string source, string dest) {
 }
 
 void graph::markallnotvisited(){
-    for(auto a : AirportSet){
+    for(auto &a : AirportSet){
         a.setvisited(false);
     }
 }

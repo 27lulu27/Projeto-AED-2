@@ -6,11 +6,14 @@
 #include "Flight.h"
 #include "Graph.h"
 #include <iostream>
+#include <unordered_map>
+
 using namespace std;
 class System{
 private:
     graph g;
-    vector<Airline> airlines;
+    unordered_map<std::string, Airport> airportsMap;        //usado para facilitar o parsing
+    unordered_map<std::string, Airline> airlinesMap;
 public:
     System();
 
@@ -19,9 +22,9 @@ public:
     void readAirports(const string &filename);
 
     void readFlights(const string &filename);
+    
+    void FastConection(string source, string dest);
 
-    Airline findAirline(const string& code) const;
-
-    void Fastconection(string source, string dest);
+    void showgraph();
 };
 #endif //PROJETOAED2_SYSTEM_H

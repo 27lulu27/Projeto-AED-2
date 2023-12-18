@@ -3,18 +3,9 @@
 #include "System.h"
 
 System::System() {
-    readAirlines("C:\\Users\\gluca\\Documents\\GitHub\\Projeto-AED-2\\data\\airlines.csv");
-    readAirports("C:\\Users\\gluca\\Documents\\GitHub\\Projeto-AED-2\\data\\airports.csv");
-    readFlights("C:\\Users\\gluca\\Documents\\GitHub\\Projeto-AED-2\\data\\flights.csv");
-}
-
-Airline System::findAirline(const string& code) const {
-    for (const auto& a : airlines) {
-        if (a.getCode() == code) {
-            return a;
-        }
-    }
-    return Airline();
+    readAirlines("C:\\Users\\gluca\\Projeto-AED-2\\data\\airlines.csv");
+    readAirports("C:\\Users\\gluca\\Projeto-AED-2\\data\\airports.csv");
+    readFlights("C:\\Users\\gluca\\Projeto-AED-2\\data\\flights.csv");
 }
 
 void System::readAirlines(const std::string& filename) {
@@ -22,13 +13,17 @@ void System::readAirlines(const std::string& filename) {
     string line;
     std::getline(file, line); // Ignora a primeira linha (cabeçalho)
 
+    if (!file.is_open()) {
+        cerr << "Erro ao abrir o arquivo: " << filename << endl;
+        return;
+    }
+
     while (getline(file, line)) {
         istringstream s(line);
         string code, name, callsign, country;
-        char comma;
         if (getline(s, code, ',') && getline(s, name, ',') && getline(s, callsign, ',') && getline(s, country, ',')) {
             Airline airline(code, name, callsign, country);
-            airlines.push_back(airline);
+            airlinesMap[code] = airline;
         }
     }
 
@@ -39,6 +34,10 @@ void System::readAirports(const std::string& filename) {
     ifstream file2(filename);
     string line;
     std::getline(file2, line); // Ignora a primeira linha (cabeçalho)
+    if (!file2.is_open()) {
+        cerr << "Erro ao abrir o arquivo: " << filename << endl;
+        return;
+    }
 
     while (getline(file2, line)) {
         istringstream s(line);
@@ -48,6 +47,7 @@ void System::readAirports(const std::string& filename) {
         if (getline(s, code, ',') && getline(s, name, ',') && getline(s, city, ',') && getline(s, country, ',') &&
             s >> latitude >> comma && s >> longitude) {
             Airport airport(code, name, city, country, latitude, longitude);
+            airportsMap[code] = airport;
             g.newAirport(airport);
         }
     }
@@ -59,24 +59,48 @@ void System::readFlights(const std::string& filename) {
     ifstream file(filename);
     string line;
     std::getline(file, line); // Ignora a primeira linha (cabeçalho)
+    if (!file.is_open()) {
+        cerr << "Erro ao abrir o arquivo: " << filename << endl;
+        return;
+    }
 
     while (getline(file, line)) {
         istringstream s(line);
         string source, target, airlineCode;
-        char comma;
         if (getline(s,source, ',') && getline(s, target, ',') && getline(s, airlineCode, ',')) {
-                for (auto& airport : g.getairports()) {
-                    if (airport.getCode() == source) {
-                        airport.addFlight(findAirline(airlineCode), target);
-                    }
+            auto airportIt = airportsMap.find(source);
+            if (airportIt != airportsMap.end()) {
+                auto airlineIt = airlinesMap.find(airlineCode);
+                if (airlineIt != airlinesMap.end()) {
+                    airportIt->second.addFlight(airlineIt->second, target);
+                 }
                 }
             }
         }
     file.close();
 }
 
-void System::Fastconection(string source, string dest) {
-    g.quickestconnection(source, dest);
+void System::FastConection(string source, string dest) {
+    auto result = g.quickestconnection(source, dest);
+    for(auto i : result){
+        cout << "->" << i;
+    }
 }
+
+void System::showgraph() {
+
+    auto airports = g.getairports();
+
+    if (airports.empty()) {
+        cout << "Nenhum aeroporto encontrado." << endl;
+        return;
+    }
+
+    for (auto i : airports) {
+        cout << i.getCode() << " ";
+    }
+    cout << endl;
+}
+
 
 
