@@ -1,4 +1,5 @@
 #include <queue>
+#include <unordered_set>
 #include "Graph.h"
 
 Airport graph::FindAirport(const string code) const {
@@ -27,36 +28,40 @@ vector<Airport> graph::getairports() {
 
 
 
-std::vector<std::string> graph::bfs(Airport source, Airport dest) {
-    vector<string> currentPath;
-    queue<Airport> fila;
-    bool empty = false;
-    fila.push(source);
-    while(!fila.empty()){
-        if(empty){
-            break;
+vector<vector<string>> graph::bfs(Airport source, Airport dest) {
+    vector<vector<string>> allPaths;  // Lista para armazenar todos os caminhos
+    queue<vector<string>> q;  // Fila para processar caminhos
+    unordered_set<string> visitedAirports;  // Conjunto para armazenar aeroportos visitados
+
+    q.push({source.getCode()});  // Inicializa a fila com um caminho contendo o aeroporto de origem
+    visitedAirports.insert(source.getCode());  // Marca o aeroporto de origem como visitado
+
+    while (!q.empty()) {
+        vector<string> currentPath = q.front();  // Obtém o próximo caminho da fila
+        q.pop();
+
+        string currentAirportCode = currentPath.back();  // Obtém o código do último aeroporto no caminho
+        if (currentAirportCode == dest.getCode()) {
+            allPaths.push_back(currentPath);  // Se chegou ao destino, adiciona o caminho à lista
+            continue;  // Continua para explorar outros caminhos
         }
-        Airport V = fila.front();
-        currentPath.push_back(V.getCode());
-        fila.pop();
-        for(auto neighbor : V.getAdj()){
-            auto W = neighbor.getTarget();
-            if(W == dest.getCode()){
-                empty = true;
-                currentPath.push_back(W);
-                break;
-            }
-            auto airp = FindAirport(W);
-            if(!airp.isvisited()){
-                fila.push(airp);
-                airp.setvisited(true);
+        Airport currentAirport = FindAirport(currentAirportCode);
+        for (auto neighbor : currentAirport.getAdj()) {
+            auto neighborCode = neighbor.getTarget();
+            if (visitedAirports.find(neighborCode) == visitedAirports.end()) {
+                visitedAirports.insert(neighborCode);  // Marca o aeroporto vizinho como visitado
+                vector<string> newPath = currentPath;  // Cria um novo caminho baseado no caminho atual
+                newPath.push_back(neighborCode);  // Adiciona o aeroporto vizinho ao novo caminho
+                q.push(newPath);  // Adiciona o novo caminho à fila para processamento futuro
             }
         }
     }
-    return currentPath;
+
+    return allPaths;  // Retorna a lista de todos os caminhos encontrados
 }
 
-std::vector<std::string> graph::quickestConnection(std::string source, std::string dest) {
+
+std::vector<vector<string>> graph::quickestConnection(std::string source, std::string dest) {
     Airport startAirport = FindAirport(source);
     Airport destinationAirport = FindAirport(dest);
 

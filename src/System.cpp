@@ -83,18 +83,37 @@ void System::readFlights(const std::string& filename) {
 }
 
 void System::FastConnection(const std::string& source, const std::string& dest) {
-    auto result = g.quickestConnection(source, dest);
+    auto paths = g.quickestConnection(source, dest);
 
-    if (!result.empty()) {
-        std::cout << "Caminho mais curto: ";
-        for (auto it = result.begin(); it != result.end(); ++it) {
-            if (it != result.begin()) {
-                std::cout << " -> ";
-            }
-            std::cout << *it;
+    if (paths.empty()) {
+        std::cout << "No conecction between " << source << " and " << dest << std::endl;
+        return;
+    }
+
+    // Encontrar o tamanho mínimo dos caminhos
+    size_t minSize = paths[0].size();
+    for (const auto& path : paths) {
+        minSize = std::min(minSize, path.size());
+    }
+
+    // Filtrar os caminhos que têm o tamanho mínimo
+    vector<vector<string>> shortestPaths;
+    for (const auto& path : paths) {
+        if (path.size() == minSize) {
+            shortestPaths.push_back(path);
+        }
+    }
+
+    // Imprimir os caminhos possíveis
+    std::cout << "Possibles paths (min size " << minSize << "):" << std::endl;
+    for (const auto& path : shortestPaths) {
+        std::cout << "  ";
+        for (const auto& airport : path) {
+            std::cout << " -> " << airport;
         }
         std::cout << std::endl;
     }
 }
+
 
 
