@@ -48,7 +48,6 @@ void System::readAirports(const std::string& filename) {
             s >> latitude >> comma && s >> longitude) {
             Airport airport(code, name, city, country, latitude, longitude);
             airportsMap[code] = airport;
-            g.newAirport(airport);
         }
     }
 
@@ -63,7 +62,6 @@ void System::readFlights(const std::string& filename) {
         cerr << "Erro ao abrir o arquivo: " << filename << endl;
         return;
     }
-
     while (getline(file, line)) {
         istringstream s(line);
         string source, target, airlineCode;
@@ -73,34 +71,30 @@ void System::readFlights(const std::string& filename) {
                 auto airlineIt = airlinesMap.find(airlineCode);
                 if (airlineIt != airlinesMap.end()) {
                     airportIt->second.addFlight(airlineIt->second, target);
+
                  }
                 }
             }
         }
+    for(auto i : airportsMap){
+        g.newAirport(i.second);
+    }
     file.close();
 }
 
-void System::FastConection(string source, string dest) {
-    auto result = g.quickestconnection(source, dest);
-    for(auto i : result){
-        cout << "->" << i;
+void System::FastConnection(const std::string& source, const std::string& dest) {
+    auto result = g.quickestConnection(source, dest);
+
+    if (!result.empty()) {
+        std::cout << "Caminho mais curto: ";
+        for (auto it = result.begin(); it != result.end(); ++it) {
+            if (it != result.begin()) {
+                std::cout << " -> ";
+            }
+            std::cout << *it;
+        }
+        std::cout << std::endl;
     }
 }
-
-void System::showgraph() {
-
-    auto airports = g.getairports();
-
-    if (airports.empty()) {
-        cout << "Nenhum aeroporto encontrado." << endl;
-        return;
-    }
-
-    for (auto i : airports) {
-        cout << i.getCode() << " ";
-    }
-    cout << endl;
-}
-
 
 

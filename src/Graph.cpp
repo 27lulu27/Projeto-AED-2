@@ -1,5 +1,5 @@
+#include <queue>
 #include "Graph.h"
-
 
 Airport graph::FindAirport(const string code) const {
     for (Airport v : AirportSet){
@@ -7,7 +7,10 @@ Airport graph::FindAirport(const string code) const {
             return v;
         }
     }
-}
+    cout << "Not found";
+    Airport V;
+    return V;
+}               //se nao encontrar retorna oq?
 
 void graph::newAirport(const Airport a) {
     AirportSet.push_back(a);
@@ -24,40 +27,49 @@ vector<Airport> graph::getairports() {
 
 
 
-
-vector<string> graph::dfs(Airport source, Airport dest, vector<string> airportscodes) {
-    source.setvisited(true);
-    airportscodes.push_back(source.getCode());
-    for(auto i =  source.getAdj().begin(); i != source.getAdj().end(); i++){
-        auto v = i->getTarget();
-        auto airp = FindAirport(v);
-        if(!airp.isvisited()){
-            dfs(airp, dest, airportscodes);
+std::vector<std::string> graph::bfs(Airport source, Airport dest) {
+    vector<string> currentPath;
+    queue<Airport> fila;
+    bool empty = false;
+    fila.push(source);
+    while(!fila.empty()){
+        if(empty){
+            break;
         }
-        if(airp.getCode() == dest.getCode()){
-            return airportscodes;
+        Airport V = fila.front();
+        currentPath.push_back(V.getCode());
+        fila.pop();
+        for(auto neighbor : V.getAdj()){
+            auto W = neighbor.getTarget();
+            if(W == dest.getCode()){
+                empty = true;
+                currentPath.push_back(W);
+                break;
+            }
+            auto airp = FindAirport(W);
+            if(!airp.isvisited()){
+                fila.push(airp);
+                airp.setvisited(true);
+            }
         }
     }
-    return {};
+    return currentPath;
 }
 
-vector<string> graph::quickestconnection(string source, string dest) {
-    vector<string> airportscodes;
-    auto s = FindAirport(source);
-    auto d = FindAirport(dest);
-    for(auto a : s.getAdj()){
-       if( a.getTarget() == dest){
-           airportscodes.push_back(dest);
-           return airportscodes;  //se o vetor estiver que tem conecção direta enrte os aeroportos
-       }
-    }
+std::vector<std::string> graph::quickestConnection(std::string source, std::string dest) {
+    Airport startAirport = FindAirport(source);
+    Airport destinationAirport = FindAirport(dest);
+
     markallnotvisited();
-    dfs(s, d, airportscodes);
-    if (airportscodes.empty()) {
-        cout << "Não há conexão entre " << source << " e " << dest << endl;
+    auto shortestPath = bfs(startAirport,destinationAirport);
+
+    if (shortestPath.empty()) {
+        std::cout << "Não há conexão entre " << source << " e " << dest << std::endl;
     }
-    return airportscodes;
+
+    return shortestPath;
 }
+
 
 void graph::markallnotvisited(){
     for(auto &a : AirportSet){

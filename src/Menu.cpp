@@ -1,10 +1,8 @@
-// Certifique-se de incluir os cabeçalhos necessários, como iostream e string.
+
 #include <iostream>
-#include "Menu.h"  // Supondo que o cabeçalho Menu.h está no mesmo diretório.
+#include "Menu.h"
 
 using namespace std;
-
-// Adicione um construtor para a classe Menu se necessário.
 
 void Menu::start(System system) {
     while (true) {
@@ -23,7 +21,7 @@ void Menu::start(System system) {
             cout << "Enter the Airport destination code:" << endl;
             string destination;  // Corrigindo o nome da variável para "destination".
             cin >> destination;
-            system.FastConection(source, destination);  // Corrigindo o nome da função para FastConnection.
+            system.FastConnection(source, destination);  // Corrigindo o nome da função para FastConnection.
         }
     }
 }

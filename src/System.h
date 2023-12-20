@@ -22,8 +22,8 @@ public:
     void readAirports(const string &filename);
 
     void readFlights(const string &filename);
-    
-    void FastConection(string source, string dest);
+
+    void FastConnection(const string& source, const string& dest);
 
     void showgraph();
 };
