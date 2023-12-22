@@ -26,5 +26,8 @@ public:
     void FastConnection(const string& source, const string& dest);
 
     void showgraph();
+
+    void FastConnectionCity(const std::string &source, const std::string &dest);
+
 };
 #endif //PROJETOAED2_SYSTEM_H

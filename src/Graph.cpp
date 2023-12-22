@@ -13,6 +13,16 @@ Airport graph::FindAirport(const string code) const {
     return V;
 }               //se nao encontrar retorna oq?
 
+vector<Airport> graph::FindAirportviaCity(const std::string city) const {
+    vector<Airport> airportsinacity;
+    for(Airport V : AirportSet){
+        if(V.getCity() == city){
+            airportsinacity.push_back(V);
+        }
+    }
+    return airportsinacity;
+}
+
 void graph::newAirport(const Airport a) {
     AirportSet.push_back(a);
 }
@@ -64,7 +74,6 @@ vector<vector<string>> graph::bfs(Airport source, Airport dest) {
 std::vector<vector<string>> graph::quickestConnection(std::string source, std::string dest) {
     Airport startAirport = FindAirport(source);
     Airport destinationAirport = FindAirport(dest);
-
     markallnotvisited();
     auto shortestPath = bfs(startAirport,destinationAirport);
 
@@ -81,3 +90,22 @@ void graph::markallnotvisited(){
         a.setvisited(false);
     }
 }
+
+vector<pair<string, vector<vector<string>>>> graph::quickestConnectionCity(string citysource, string citydest) {
+    vector<pair<string, vector<vector<string>>>> airports;
+    vector<Airport> start = FindAirportviaCity(citysource); // Aeroportos da cidade de origem
+    vector<Airport> dest = FindAirportviaCity(citydest);    // Aeroportos da cidade de destino
+    for (auto i : start) {  // Para cada aeroporto da cidade de origem
+        for (auto j : dest) {  // Para cada aeroporto da cidade de destino
+            markallnotvisited();
+            string newpair = "Aeroport of "+ citysource + ":" + i.getName() + " " + "Aeroport of " + citydest+ ":"  + j.getName();
+            vector<vector<string>> paths = bfs(i, j);
+            airports.push_back(make_pair(newpair, paths));  // Adiciona ao vetor 'airports' os caminhos entre os dois aeroportos
+        }
+    }
+    if (airports.empty()) {
+        std::cout << "Não há conexão entre " << citysource << " e " << citydest << std::endl;
+    }
+    return airports;
+}
+

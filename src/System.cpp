@@ -82,6 +82,31 @@ void System::readFlights(const std::string& filename) {
     file.close();
 }
 
+void System::FastConnectionCity(const std::string &source, const std::string &dest) {
+    auto paths = g.quickestConnectionCity(source, dest);
+    if (paths.empty()) {
+        std::cout << "No connection between " << source << " and " << dest << std::endl;
+        return;
+    }
+    bool passed = false;
+    for(auto i : paths){
+        cout << i.first;
+        for (const auto& path : i.second) {
+            std::cout << endl;
+            passed = false;
+            for (const auto& airport : path) {
+                if(!passed) {
+                    std::cout << airport;
+                    passed = true;
+                }
+                std::cout << " -> " << airport;
+            }
+            std::cout << std::endl;
+        }
+    }
+}
+
+
 void System::FastConnection(const std::string& source, const std::string& dest) {
     auto paths = g.quickestConnection(source, dest);
 
