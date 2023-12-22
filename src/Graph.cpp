@@ -15,13 +15,14 @@ Airport graph::FindAirport(const string code) const {
 
 vector<Airport> graph::FindAirportviaCity(const std::string city) const {
     vector<Airport> airportsinacity;
-    for(Airport V : AirportSet){
-        if(V.getCity() == city){
+    for (const Airport& V : AirportSet) {
+        if (V.getCity() == city) {
             airportsinacity.push_back(V);
         }
     }
     return airportsinacity;
 }
+
 
 void graph::newAirport(const Airport a) {
     AirportSet.push_back(a);

@@ -29,6 +29,8 @@ void Menu::start(System system) {
                 cin >> destination;
                 system.FastConnection(source, destination);  // Corrigindo o nome da função para FastConnection.
             }
+
+            //nao funciona com palavras compostas como NEW YORK N SEI PQ
             if(subchoise == 2){
                 cout << "Enter the City source name:" << endl;
                 string source;
@@ -37,7 +39,6 @@ void Menu::start(System system) {
                 string destination;  // Corrigindo o nome da variável para "destination".
                 cin >> destination;
                 system.FastConnectionCity(source, destination);  // Corrigindo o nome da função para FastConnection.
-
             }
         }
     }

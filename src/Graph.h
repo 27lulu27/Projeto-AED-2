@@ -3,6 +3,7 @@
 #include "Airport.h"
 #include <vector>
 #include <algorithm>
+#include <cctype>
 class graph{
 private:
     vector<Airport> AirportSet;
