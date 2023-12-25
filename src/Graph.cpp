@@ -145,3 +145,49 @@ int graph::NumberofFofAirline(string code) {
     }
     return num;
 }
+
+int graph::NumberofDContriesairport(string code){
+    auto air = FindAirport(code);
+    map<string, int> countries;
+    for(auto i : air.getAdj()){
+        auto dest = FindAirport(i.getTarget());
+        countries[dest.getCountry()]++;
+    }
+    return countries.size();
+}
+
+int graph::NumberofDContriescity(std::string city) {
+    auto air = FindAirportviaCity(city);
+    map<string, int> countries;
+    for(auto i : air){
+       for(auto j : i.getAdj()){
+           auto dest = FindAirport(j.getTarget());
+           countries[dest.getCountry()]++;
+       }
+    }
+    return countries.size();
+}
+
+int graph::avaliabledestinations(string code, int num) {
+    auto air = FindAirport(code);
+    map<string, int> airports;
+    if(num == 1){
+        for(auto i : air.getAdj()){
+            auto dest = FindAirport(i.getTarget());
+            airports[dest.getCode()]++;
+        }
+        return airports.size();
+    }
+    else if(num == 2){
+        for(auto i : air.getAdj()){
+            auto dest = FindAirport(i.getTarget());
+            airports[dest.getCity()]++;
+        }
+        return airports.size();
+    }
+    for(auto i : air.getAdj()){
+        auto dest = FindAirport(i.getTarget());
+        airports[dest.getCountry()]++;
+    }
+    return airports.size();
+}

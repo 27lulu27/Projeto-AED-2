@@ -20,5 +20,8 @@ vector<Airport> FindAirportviaCity(const std::string city) const;
 void NumberofFofAir(string code);
 int NumberofFofCity(string city);
 int NumberofFofAirline(string code);
+int NumberofDContriesairport(string code);
+int NumberofDContriescity(std::string city);
+int avaliabledestinations(string code, int num);
 };
 #endif //PROJETOAED2_GRAPH_H

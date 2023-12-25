@@ -38,5 +38,10 @@ public:
 
     void NumberofFofAirline(string airlinecode);
 
+    void NumberofDContriesairport(string code);
+
+    void NumberofDContriescity(string city);
+
+    void avaliabledestinations(string code, int num);
 };
 #endif //PROJETOAED2_SYSTEM_H

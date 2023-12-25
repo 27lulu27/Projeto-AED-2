@@ -136,7 +136,7 @@ void System::FastConnection(const std::string& source, const std::string& dest) 
 }
 
 void System::NumberofAandF() {
-    cout << "Number of Airports: " << airportsMap.size() << endl;
+    cout << "Number of Airports: " << airportsMap.size() - 1 << endl; //cabeçario -1
     cout << "Numbet of Flights: " << flights << endl;
 
 }
@@ -153,4 +153,27 @@ cout << "The number of flights of" << city <<" is: " << number << endl;
 void System::NumberofFofAirline(string city) {
     int number = g.NumberofFofAirline(city);
     cout << "The number of flights of a airline is: " << number << endl;
+}
+
+void System::NumberofDContriesairport(string code){
+    int number = g.NumberofDContriesairport(code);
+    cout << "The number of contries you can go with this airport ("<< code << ") is: " << number << endl;
+}
+
+void System::NumberofDContriescity(string city){
+    int number = g.NumberofDContriescity(city);
+    cout << "The number of contries you can go with in this city ("<< city << ") is " << number << endl;
+}
+
+void System::avaliabledestinations(string code, int num) {
+    int number = g.avaliabledestinations(code, num);
+    if(num == 1){
+        cout << "The number of airports you can go with in this airports ("<< code << ") is " << number << endl;
+    }
+    else if(num == 2){
+        cout << "The number of cities you can go with in this airports ("<< code << ") is " << number << endl;
+    }
+    else if(num == 3){
+        cout << "The number of countries you can go with in this airports ("<< code << ") is " << number << endl;
+    }
 }

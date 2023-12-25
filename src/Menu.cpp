@@ -47,7 +47,10 @@ void Menu::start(System system) {
             cout << "1- Global number of airports and number of available flights;" << endl;
             cout << "2- Number of flights out of an airport; and from how many different airlines;" << endl;
             cout << "3- Number of flights per city;" << endl;
-            cout << "3- Number of flights per Airline;" << endl;
+            cout << "4- Number of flights per Airline;" << endl;
+            cout << "5- Number of different countries that a given airport flies to" << endl;
+            cout << "6- Number of different countries that a given city flies to" << endl;
+            cout << "7- Number of destinations (airports, cities or countries) available for a given airport;" << endl;
             int subchoise;
             cin >> subchoise;
             if(subchoise == 1){
@@ -64,6 +67,35 @@ void Menu::start(System system) {
                 string city;
                 cin >> city;
                 system.NumberofFofCity(city);
+            }
+            else if(subchoise == 4){
+                cout << "Enter the airline code:";
+                string Airlinecode;
+                cin >> Airlinecode;
+                system.NumberofFofAirline(Airlinecode);
+            }
+            else if(subchoise == 5){
+                cout << "Enter the airport code:" << endl;
+                string code;
+                cin >> code;
+                system.NumberofDContriesairport(code);
+            }
+            else if(subchoise == 6){
+                cout << "Enter the city name:" << endl;
+                string city;
+                cin >> city;
+                system.NumberofDContriescity(city);
+            }
+            else if(subchoise == 7){
+                cout << "Enter the airport code:"<< endl;
+                string code;
+                cin >> code;
+                cout << "1- Number of airports available" << endl;
+                cout << "2- Number of cities available" << endl;
+                cout << "3- Number of countries available" << endl;
+                int subsubchoise;
+                cin >> subsubchoise;
+                system.avaliabledestinations(code, subsubchoise);
             }
         }
     }
