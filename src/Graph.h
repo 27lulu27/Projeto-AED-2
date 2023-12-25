@@ -17,5 +17,8 @@ vector<vector<string>> bfs(Airport source, Airport dest);
 void markallnotvisited();
 vector<pair<string, vector<vector<string>>>> quickestConnectionCity(string  source, string dest);
 vector<Airport> FindAirportviaCity(const std::string city) const;
+void NumberofFofAir(string code);
+int NumberofFofCity(string city);
+int NumberofFofAirline(string code);
 };
 #endif //PROJETOAED2_GRAPH_H

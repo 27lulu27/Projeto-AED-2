@@ -71,7 +71,7 @@ void System::readFlights(const std::string& filename) {
                 auto airlineIt = airlinesMap.find(airlineCode);
                 if (airlineIt != airlinesMap.end()) {
                     airportIt->second.addFlight(airlineIt->second, target);
-
+                    flights++;
                  }
                 }
             }
@@ -135,5 +135,22 @@ void System::FastConnection(const std::string& source, const std::string& dest) 
     }
 }
 
+void System::NumberofAandF() {
+    cout << "Number of Airports: " << airportsMap.size() << endl;
+    cout << "Numbet of Flights: " << flights << endl;
 
+}
 
+void System::NumberofFofAir(string code) {
+g.NumberofFofAir(code);
+}
+
+void System::NumberofFofCity(string city) {
+int number = g.NumberofFofCity(city);
+cout << "The number of flights of" << city <<" is: " << number << endl;
+}
+
+void System::NumberofFofAirline(string city) {
+    int number = g.NumberofFofAirline(city);
+    cout << "The number of flights of a airline is: " << number << endl;
+}

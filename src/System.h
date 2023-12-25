@@ -12,6 +12,7 @@ using namespace std;
 class System{
 private:
     graph g;
+    int flights; //quantidade de voos
     unordered_map<std::string, Airport> airportsMap;        //usado para facilitar o parsing
     unordered_map<std::string, Airline> airlinesMap;
 public:
@@ -27,7 +28,15 @@ public:
 
     void showgraph();
 
+    void NumberofAandF();
+
+    void NumberofFofAir(string code);
+
     void FastConnectionCity(const std::string &source, const std::string &dest);
+
+    void NumberofFofCity(string city);
+
+    void NumberofFofAirline(string airlinecode);
 
 };
 #endif //PROJETOAED2_SYSTEM_H

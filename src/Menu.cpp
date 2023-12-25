@@ -8,6 +8,7 @@ void Menu::start(System system) {
     while (true) {
         cout << endl << "Menu:" << endl;
         cout << "1- Present the best flight option" << endl;
+        cout << "2- Statistics of the network" << endl;
         cout << "Press a number to continue or press 0 to quit" << endl;
         int choice;  // Corrigindo o nome da variável para "choice".
         cin >> choice;
@@ -24,6 +25,7 @@ void Menu::start(System system) {
                 cout << "Enter the Airport source code:" << endl;
                 string source;
                 cin >> source;
+                cout << "the source was : " << source << endl;
                 cout << "Enter the Airport destination code:" << endl;
                 string destination;  // Corrigindo o nome da variável para "destination".
                 cin >> destination;
@@ -39,6 +41,29 @@ void Menu::start(System system) {
                 string destination;  // Corrigindo o nome da variável para "destination".
                 cin >> destination;
                 system.FastConnectionCity(source, destination);  // Corrigindo o nome da função para FastConnection.
+            }
+        }
+        else if(choice == 2){
+            cout << "1- Global number of airports and number of available flights;" << endl;
+            cout << "2- Number of flights out of an airport; and from how many different airlines;" << endl;
+            cout << "3- Number of flights per city;" << endl;
+            cout << "3- Number of flights per Airline;" << endl;
+            int subchoise;
+            cin >> subchoise;
+            if(subchoise == 1){
+               system.NumberofAandF();
+            }
+            else if(subchoise == 2){
+                cout << "Enter the airport code:";
+                string code;
+                cin >> code;
+                system.NumberofFofAir(code);
+            }
+            else if(subchoise == 3){            //cidades compostas nao funcionam
+                cout << "Enter the city name:";
+                string city;
+                cin >> city;
+                system.NumberofFofCity(city);
             }
         }
     }

@@ -1,5 +1,6 @@
 #include <queue>
 #include <unordered_set>
+#include <map>
 #include "Graph.h"
 
 Airport graph::FindAirport(const string code) const {
@@ -67,7 +68,6 @@ vector<vector<string>> graph::bfs(Airport source, Airport dest) {
             }
         }
     }
-
     return allPaths;  // Retorna a lista de todos os caminhos encontrados
 }
 
@@ -110,3 +110,38 @@ vector<pair<string, vector<vector<string>>>> graph::quickestConnectionCity(strin
     return airports;
 }
 
+void graph::NumberofFofAir(string code) {
+    int numberofflights = 0;
+    map<string, int> airlinesMap;
+
+    Airport airport = FindAirport(code);
+
+    for(auto flight : airport.getAdj()) {
+        numberofflights++;
+        airlinesMap[flight.getAirline().getCode()]++;
+    }
+
+    cout << "The Airport " << code << " has " << numberofflights << " flights from " << airlinesMap.size() << " different airlines." << endl;
+}
+
+int graph::NumberofFofCity(string city) {
+    int num = 0;
+    for(auto i : AirportSet){
+        if(i.getCity() == city){
+            num += i.getAdj().size();
+        }
+    }
+    return num;
+}
+
+int graph::NumberofFofAirline(string code) {
+    int num = 0;
+    for(auto i : AirportSet){
+        for(auto j : i.getAdj()){
+            if(j.getAirline().getCode() == code){
+                num++;
+            }
+        }
+    }
+    return num;
+}

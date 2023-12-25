@@ -31,7 +31,7 @@ double Airport::getLongitude() const{
 }
 
 vector<Flight> Airport::getAdj() const {
-    return adj;
+    return adj;                             //vetor com os voos
 }
 
 void Airport::addFlight(Airline airline, string target) {
