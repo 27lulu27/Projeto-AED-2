@@ -49,5 +49,7 @@ public:
     void maxdistance();
 
     void topairports(int k);
+
+    void essentialairports();
 };
 #endif //PROJETOAED2_SYSTEM_H

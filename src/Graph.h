@@ -19,6 +19,7 @@ vector<vector<string>> bfs(Airport source, Airport dest);
 void markallnotvisited();
 vector<pair<string, vector<vector<string>>>> quickestConnectionCity(string  source, string dest);
 vector<Airport> FindAirportviaCity(const std::string city) const;
+bool dfsisDAG(Airport air);
 void NumberofFofAir(string code);
 int NumberofFofCity(string city);
 int NumberofFofAirline(string code);
@@ -32,5 +33,6 @@ int bfscountrynumber(Airport source, int max);
 pair<int, pair<string , string>> maximumtrip();
 pair<int , string> bfsmax(const string&);
 vector<Airport> topairports(int k);
+vector<string> essentialairports();
 };
 #endif //PROJETOAED2_GRAPH_H

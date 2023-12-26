@@ -50,3 +50,11 @@ bool Airport::isvisited() {
 int Airport::getNumberOfFlights() {
     return numberofflights;
 }
+
+bool Airport::isProcessed() {
+    return processed;
+}
+
+void Airport::setProcessed(const bool k){
+    processed = k;
+}

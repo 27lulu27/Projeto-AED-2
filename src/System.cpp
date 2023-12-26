@@ -198,9 +198,18 @@ void System::maxdistance(){
 
 void System::topairports(int k){
     int num = 1;
-    vector<Airport> airportscode = g.topairports(k);
-    for(auto i : airportscode){
+    vector<Airport> airports = g.topairports(k);
+    for(auto i : airports){
         cout << num << "- " << i.getName() << " number of flights " << i.getNumberOfFlights() << endl;
         num++;
+    }
+}
+
+void System::essentialairports() {
+    int i = 0;
+vector<string> airports = g.essentialairports();
+    for(auto j : airports){
+        cout << i << "- " << j << " ";
+        i++;
     }
 }

@@ -123,6 +123,7 @@ void Menu::start(System system) {
         }
         else if(choice == 3){
             cout << "1- The top K airports with the greatest number of flights" << endl;
+            cout << "2- The essential airpots" << endl;
             int subchoise;
             cin >> subchoise;
             if(subchoise == 1){
@@ -130,6 +131,9 @@ void Menu::start(System system) {
                 int k;
                 cin >> k;
                 system.topairports(k);
+            }
+            else if(subchoise == 2){
+                system.essentialairports();
             }
         }
     }

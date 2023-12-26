@@ -359,3 +359,31 @@ vector<Airport> graph::topairports(int k) {
     }
     return res;
 }
+
+vector<string> graph::essentialairports() {
+    vector<string> airports;
+    for(auto air : AirportSet){
+        air.setvisited(true);
+        if(!dfsisDAG(air)){
+            airports.push_back(air.getCode());
+        }
+    }
+    return airports;
+}
+
+bool graph::dfsisDAG(Airport air) {
+    air.setvisited(true);
+    air.setProcessed(false);
+    for(auto i : air.getAdj()){
+        auto adj = FindAirport(i.getTarget());
+        if(!adj.isProcessed()){
+            return true;
+        }
+        if(!adj.isvisited()){
+            dfsisDAG(adj);
+        }
+    }
+    return false;
+}
+
+
