@@ -15,6 +15,7 @@ class Airport{
         string code, name, city, country;
         double latitude, longitude;
         bool visited;
+        int numberofflights = 0;
 public:
         vector<Flight> adj;
         Airport();
@@ -29,6 +30,7 @@ public:
         void addFlight(Airline airline, string target);
         void setvisited(const bool v);
         bool isvisited();
+        int getNumberOfFlights();
 };
 
 #endif

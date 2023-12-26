@@ -1,6 +1,7 @@
 #include <queue>
 #include <unordered_set>
 #include <map>
+#include <set>
 #include "Graph.h"
 
 Airport graph::FindAirport(const string code) const {
@@ -27,6 +28,7 @@ vector<Airport> graph::FindAirportviaCity(const std::string city) const {
 
 void graph::newAirport(const Airport a) {
     AirportSet.push_back(a);
+    airportMap.emplace(a.getCode(), a);
 }
 
 void graph::addFlight(const string source, const string dest, Airline airline) {
@@ -190,4 +192,170 @@ int graph::avaliabledestinations(string code, int num) {
         airports[dest.getCountry()]++;
     }
     return airports.size();
+}
+
+int graph::reachabledestinationsmax(string code, int max, int num) {
+    auto air = FindAirport(code);
+    if(num == 1){
+        return bfsairportnumber(air, max);
+    }
+    else if(num == 2){
+        return bfscitiesnumber(air, max);
+    }
+    return bfscountrynumber(air, max);
+}
+
+
+int graph::bfsairportnumber(Airport source, int max) {
+    vector<string> res;
+    queue<pair<Airport, int>> fila;  // Pair para armazenar o vértice e a distância
+    fila.push({source, 0});
+    markallnotvisited();
+    while(!fila.empty()){
+        auto currentpair = fila.front();
+        fila.pop();
+        auto currentairp = currentpair.first;
+        int currentDistance = currentpair.second;
+        currentairp.setvisited(true);
+        if(currentDistance == max){
+            res.push_back(currentairp.getCode());
+            continue;
+        }
+        for(auto edge : currentairp.getAdj()){
+            auto neigbo = edge.getTarget();
+            auto airpn = FindAirport(neigbo);
+            if(!airpn.isvisited()){
+                fila.push({airpn, currentDistance + 1});
+            }
+        }
+    }
+    return res.size();
+}
+
+int graph::bfscitiesnumber(Airport source, int max) {
+    vector<string> res;
+    set<string> cities;
+    queue<pair<Airport, int>> fila;  // Pair para armazenar o vértice e a distância
+    fila.push({source, 0});
+    markallnotvisited();
+    while(!fila.empty()){
+        auto currentpair = fila.front();
+        fila.pop();
+        auto currentairp = currentpair.first;
+        int currentDistance = currentpair.second;
+        currentairp.setvisited(true);
+        if(currentDistance == max){
+            res.push_back(currentairp.getCode());
+            cities.insert(currentairp.getCity());
+            continue;
+        }
+        for(auto edge : currentairp.getAdj()){
+            auto neigbo = edge.getTarget();
+            auto airpn = FindAirport(neigbo);
+            if(!airpn.isvisited()){
+                fila.push({airpn, currentDistance + 1});
+            }
+        }
+    }
+    return cities.size();
+}
+
+int graph::bfscountrynumber(Airport source, int max) {
+    vector<string> res;
+    set<string> countries;
+    queue<pair<Airport, int>> fila;  // Pair para armazenar o vértice e a distância
+    fila.push({source, 0});
+    markallnotvisited();
+    while(!fila.empty()){
+        auto currentpair = fila.front();
+        fila.pop();
+        auto currentairp = currentpair.first;
+        int currentDistance = currentpair.second;
+        currentairp.setvisited(true);
+        if(currentDistance == max){
+            res.push_back(currentairp.getCode());
+            countries.insert(currentairp.getCountry());
+            continue;
+        }
+        for(auto edge : currentairp.getAdj()){
+            auto neigbo = edge.getTarget();
+            auto airpn = FindAirport(neigbo);
+            if(!airpn.isvisited()){
+                fila.push({airpn, currentDistance + 1});
+            }
+        }
+    }
+    return countries.size();
+}
+
+pair<int, pair<string, string>> graph::maximumtrip() {
+    int maxDiameter = 0;
+    pair<string, string> maxDiameterVertices;
+
+    for (const auto& entry : airportMap) {
+        const string& startCode = entry.first;
+        pair<int, string> currentDiameter = bfsmax(startCode);
+        if (currentDiameter.first > maxDiameter) {
+            maxDiameter = currentDiameter.first;
+            maxDiameterVertices = {startCode, currentDiameter.second};
+        }
+    }
+
+    return {maxDiameter, maxDiameterVertices};
+}
+
+pair<int , string> graph::bfsmax(const string& startCode) {
+    queue<pair<int, string>> q;  // Pares (distância, vértice)
+    unordered_map<string, int> distances;  // Armazena as distâncias mínimas para cada vértice
+
+    q.push({0, startCode});
+    distances[startCode] = 0;
+
+    pair<int, string> maxDistanceVertex = {0, startCode};
+
+    while (!q.empty()) {
+        auto currentPair = q.front();
+        q.pop();
+
+        int currentDistance = currentPair.first;
+        const string& currentCode = currentPair.second;
+
+        if (currentDistance > maxDistanceVertex.first) {
+            maxDistanceVertex = {currentDistance, currentCode};
+        }
+
+        const auto& currentAirport = airportMap[currentCode];
+        for ( auto neighborCode : currentAirport.getAdj()) {
+            auto i = FindAirport(neighborCode.getTarget());
+            if (!i.isvisited()) {
+                distances[i.getCode()] = currentDistance + 1;
+                q.push({currentDistance + 1, i.getCode()});
+            }
+        }
+    }
+
+    return maxDistanceVertex;
+}
+
+
+vector<Airport> graph::topairports(int k) {
+    markallnotvisited();
+    vector<Airport> res;
+    for(int i = 1; i <= k; i++){
+        auto maxElement = std::max_element(
+                AirportSet.begin(),
+                AirportSet.end(),
+                [](Airport a,  Airport b) {
+                    // Ordena com base no número de voos, mas aeroportos não visitados têm prioridade
+                    if (a.isvisited() != b.isvisited()) {
+                        return a.isvisited() > b.isvisited();
+                    } else {
+                        return a.getNumberOfFlights() < b.getNumberOfFlights();
+                    }
+                }
+        );
+    maxElement->setvisited(true);
+    res.push_back(*maxElement);
+    }
+    return res;
 }

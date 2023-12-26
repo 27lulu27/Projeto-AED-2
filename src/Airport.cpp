@@ -36,6 +36,7 @@ vector<Flight> Airport::getAdj() const {
 
 void Airport::addFlight(Airline airline, string target) {
 adj.push_back(Flight(airline, target));
+numberofflights++;
 }
 
 void Airport::setvisited(const bool v) {
@@ -44,4 +45,8 @@ void Airport::setvisited(const bool v) {
 
 bool Airport::isvisited() {
     return visited;
+}
+
+int Airport::getNumberOfFlights() {
+    return numberofflights;
 }

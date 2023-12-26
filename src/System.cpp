@@ -177,3 +177,30 @@ void System::avaliabledestinations(string code, int num) {
         cout << "The number of countries you can go with in this airports ("<< code << ") is " << number << endl;
     }
 }
+
+void System::reachabledestinationsmax(string code, int max, int num){
+    int number = g.reachabledestinationsmax(code, max,num);
+    if(num == 1){
+        cout << "The number of reachable airports you can go with in a maximum number of " << max << " stops with this airports ("<< code << ") is " << number << endl;
+    }
+    else if(num == 2){
+        cout << "The number of reachable cities you can go with in a maximum number of " << max << " stops with this airports ("<< code << ") is " << number << endl;
+    }
+    else if(num == 3){
+        cout << "The number of reachable countries you can go with in a maximum number of " << max << " stops with this airports ("<< code << ") is " << number << endl;
+    }
+}
+
+void System::maxdistance(){
+    pair<int, pair<string, string>> res = g.maximumtrip();
+    cout << "The trip with greatest number of stops is from " << res.second.first << " to " << res.second.second << " with " << res.first << " stops" << endl;
+}
+
+void System::topairports(int k){
+    int num = 1;
+    vector<Airport> airportscode = g.topairports(k);
+    for(auto i : airportscode){
+        cout << num << "- " << i.getName() << " number of flights " << i.getNumberOfFlights() << endl;
+        num++;
+    }
+}

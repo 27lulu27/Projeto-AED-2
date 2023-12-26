@@ -4,9 +4,11 @@
 #include <vector>
 #include <algorithm>
 #include <cctype>
+#include <unordered_map>
 class graph{
 private:
     vector<Airport> AirportSet;
+    unordered_map<string, Airport> airportMap; //ajudar nas statistics
 public:
 Airport FindAirport(const string code) const;
 void newAirport(const Airport a);
@@ -23,5 +25,12 @@ int NumberofFofAirline(string code);
 int NumberofDContriesairport(string code);
 int NumberofDContriescity(std::string city);
 int avaliabledestinations(string code, int num);
+int reachabledestinationsmax(string code, int max, int num);
+int bfsairportnumber(Airport source, int max);
+int bfscitiesnumber(Airport source, int max);
+int bfscountrynumber(Airport source, int max);
+pair<int, pair<string , string>> maximumtrip();
+pair<int , string> bfsmax(const string&);
+vector<Airport> topairports(int k);
 };
 #endif //PROJETOAED2_GRAPH_H

@@ -43,5 +43,11 @@ public:
     void NumberofDContriescity(string city);
 
     void avaliabledestinations(string code, int num);
+
+    void reachabledestinationsmax(string code, int max, int num);
+
+    void maxdistance();
+
+    void topairports(int k);
 };
 #endif //PROJETOAED2_SYSTEM_H
