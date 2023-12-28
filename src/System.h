@@ -51,5 +51,7 @@ public:
     void topairports(int k);
 
     void essentialairports();
+
+    void FastConnectionCord(string source, double lat, double lon);
 };
 #endif //PROJETOAED2_SYSTEM_H

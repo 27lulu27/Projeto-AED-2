@@ -205,11 +205,24 @@ void System::topairports(int k){
     }
 }
 
-void System::essentialairports() {
-    int i = 0;
-vector<string> airports = g.essentialairports();
-    for(auto j : airports){
-        cout << i << "- " << j << " ";
-        i++;
+void System::FastConnectionCord(string source, double lat, double lon) {
+    vector<pair<Airport,double>> closestones = g.ClosestAirport(lat, lon);
+    if(closestones.size() > 1){
+        cout << "The closest airports are: ";
     }
+    else    {
+        cout << "The closest airport is: ";
+    }
+    for(auto i : closestones){
+        cout << i.first.getName() << "is located at a distance of " << i.second << "km from the " << lat << " and " << lon << " coordinates." << endl;
+    }
+    cout << endl;
+    for(auto i : closestones){
+        FastConnection(source, i.first.getCode());
+    }
+}
+
+void System::essentialairports() {
+    int number = g.essentialairports();
+cout << "The number of essential airports are: " << number << endl;
 }

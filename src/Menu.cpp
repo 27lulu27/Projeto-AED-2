@@ -33,8 +33,7 @@ void Menu::start(System system) {
                 system.FastConnection(source, destination);  // Corrigindo o nome da função para FastConnection.
             }
 
-            //nao funciona com palavras compostas como NEW YORK N SEI PQ
-            if(subchoise == 2){
+            else if(subchoise == 2){
                 cout << "Enter the City source name:" << endl;
                 string source;
                 std::getline(std::cin >> std::ws, source);
@@ -42,6 +41,18 @@ void Menu::start(System system) {
                 string destination;  // Corrigindo o nome da variável para "destination".
                 std::getline(std::cin >> std::ws, destination);
                 system.FastConnectionCity(source, destination);  // Corrigindo o nome da função para FastConnection.
+            }
+            else if(subchoise == 3){
+                cout << "Enter the Airport source code:" << endl;
+                string source;
+                cin >> source;
+                cout << "Enter the Latitute: " << endl;
+                double lat;
+                cin >> lat;
+                cout << "Enter the Longitude: " << endl;
+                double lon;
+                cin >> lon;
+                system.FastConnectionCord(source,lat,lon);
             }
         }
         else if(choice == 2){

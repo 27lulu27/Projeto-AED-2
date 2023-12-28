@@ -360,30 +360,82 @@ vector<Airport> graph::topairports(int k) {
     return res;
 }
 
-vector<string> graph::essentialairports() {
-    vector<string> airports;
-    for(auto air : AirportSet){
-        air.setvisited(true);
-        if(!dfsisDAG(air)){
-            airports.push_back(air.getCode());
+
+int graph::essentialairports() {
+    markallnotvisited();
+    int articulationPointsCount = 0;
+    for (auto& airport : AirportSet) {
+        if (!airport.isvisited()) {
+            BFSArticulationPoints(airport, articulationPointsCount);
+            break;
         }
     }
-    return airports;
+    return articulationPointsCount;
 }
 
-bool graph::dfsisDAG(Airport air) {
-    air.setvisited(true);
-    air.setProcessed(false);
-    for(auto i : air.getAdj()){
-        auto adj = FindAirport(i.getTarget());
-        if(!adj.isProcessed()){
-            return true;
-        }
-        if(!adj.isvisited()){
-            dfsisDAG(adj);
+void graph::BFSArticulationPoints( Airport& startAirport, int& articulationPointsCount) {
+    startAirport.setvisited(true);
+    std::queue<string> q;  // Usar ponteiros para evitar cópias desnecessárias
+    std::unordered_map<std::string, int> num;
+    std::unordered_map<std::string, int> low;
+    std::unordered_map<std::string, bool> visited;
+    std::unordered_map<std::string, std::string> parent;
+
+    // Inicialize as estruturas de dados
+    num[startAirport.getCode()] = 0;
+    low[startAirport.getCode()] = 0;
+    visited[startAirport.getCode()] = true;
+    q.push(startAirport.getCode());
+
+    while (!q.empty()) {
+        const std::string& currentCode = q.front();
+        q.pop();
+        Airport currentAirport = FindAirport(currentCode);
+
+        for ( auto& flight : currentAirport.getAdj()) {
+            const std::string& neighborCode = flight.getTarget();
+            if (!visited[neighborCode]) {
+                // Tree Edge
+                visited[neighborCode] = true;
+                num[neighborCode] = low[neighborCode] = num[currentCode] + 1;
+                parent[neighborCode] = currentCode;
+                q.push(neighborCode);
+
+                // Lógica para verificar se o vértice atual é um ponto de articulação
+                if (parent.find(currentAirport.getCode()) != parent.end() && low[neighborCode] >= num[currentAirport.getCode()]) {
+                    currentAirport.setvisited(true);
+                    articulationPointsCount++;
+                }
+            }
         }
     }
-    return false;
 }
+
+
+
+vector<pair<Airport, double>> graph::ClosestAirport(double lat, double lon) {
+    const double earthRadius = 6371.0; // Earth radius in kilometers
+
+    std::vector<pair<Airport,double>> closestAirports;
+    double minDistance = std::numeric_limits<double>::max();
+
+    for (const auto &airport : AirportSet) {
+        double deltaLat = airport.getLatitude() - lat;
+        double deltaLon = airport.getLongitude() - lon;
+
+        double distance = earthRadius * 2.0 * asin(sqrt(
+                pow(sin(deltaLat / 2.0), 2.0) + cos(lat) * cos(airport.getLatitude()) * pow(sin(deltaLon / 2.0), 2.0)
+        ));
+
+        if (distance < minDistance) {
+            minDistance = distance;
+            closestAirports.clear();
+            closestAirports.push_back({airport,distance});
+        }
+    }
+
+    return closestAirports;
+}
+
 
 
