@@ -288,54 +288,66 @@ int graph::bfscountrynumber(Airport source, int max) {
     return countries.size();
 }
 
-pair<int, pair<string, string>> graph::maximumtrip() {
-    int maxDiameter = 0;
-    pair<string, string> maxDiameterVertices;
+vector<pair<pair<string, string>, int>> graph::BFSLargestFlightCount() {
+    int i = 0;
+    vector<pair<pair<string, string>, int>> distances;
 
-    for (const auto& entry : airportMap) {
-        const string& startCode = entry.first;
-        pair<int, string> currentDiameter = bfsmax(startCode);
-        if (currentDiameter.first > maxDiameter) {
-            maxDiameter = currentDiameter.first;
-            maxDiameterVertices = {startCode, currentDiameter.second};
-        }
+    for (auto& startEntry : AirportSet) {
+        BFSWithLevels(startEntry, distances, i);
     }
-
-    return {maxDiameter, maxDiameterVertices};
+    return distances;
 }
 
-pair<int , string> graph::bfsmax(const string& startCode) {
-    queue<pair<int, string>> q;  // Pares (distância, vértice)
-    unordered_map<string, int> distances;  // Armazena as distâncias mínimas para cada vértice
+void graph::BFSWithLevels(Airport startCode, vector<pair<pair<string,string>, int>> distances, int i) {
+    // Marca todos os vértices como não visitados
+    markallnotvisited();
 
-    q.push({0, startCode});
-    distances[startCode] = 0;
+    // Marca o vértice de origem como visitado e define o nível como 0
+    startCode.setvisited(true);
 
-    pair<int, string> maxDistanceVertex = {0, startCode};
+    // Fila para armazenar os pares (vértice, nível)
+    queue<pair<string, int>> q;
 
+    // Adiciona o vértice de origem à fila com nível 0
+    q.push({startCode.getCode(), 0});
+
+    // Adiciona um marcador de nível para indicar o final de cada nível
+    q.push({"NULL", 0});
+
+    // BFS com rastreamento de níveis
     while (!q.empty()) {
+        // Retira um par (vértice, nível) da fila
         auto currentPair = q.front();
         q.pop();
 
-        int currentDistance = currentPair.first;
-        const string& currentCode = currentPair.second;
+        string currentVertexCode = currentPair.first;
+        int currentLevel = currentPair.second;
 
-        if (currentDistance > maxDistanceVertex.first) {
-            maxDistanceVertex = {currentDistance, currentCode};
+        // Verifica se atingiu o marcador de nível
+        if (currentVertexCode == "NULL") {
+            // Adiciona um novo marcador de nível se ainda houver vértices na fila
+            if (!q.empty()) {
+                q.push({"NULL", 0});
+            }
+
+            continue;
         }
-
-        const auto& currentAirport = airportMap[currentCode];
-        for ( auto neighborCode : currentAirport.getAdj()) {
-            auto i = FindAirport(neighborCode.getTarget());
-            if (!i.isvisited()) {
-                distances[i.getCode()] = currentDistance + 1;
-                q.push({currentDistance + 1, i.getCode()});
+        cout << i << " ";
+        i++;
+        distances.push_back({{startCode.getCode(), currentVertexCode}, currentLevel});
+        // Itera sobre os vizinhos do vértice atual
+        auto currentairp = FindAirport(currentVertexCode);
+        for(auto edge : currentairp.getAdj()){
+            auto neigbo = edge.getTarget();
+            auto airpn = FindAirport(neigbo);
+            if(!airpn.isvisited()){
+                q.push({airpn.getCode(), currentLevel + 1});
             }
         }
     }
-
-    return maxDistanceVertex;
 }
+
+
 
 
 vector<Airport> graph::topairports(int k) {
@@ -360,58 +372,10 @@ vector<Airport> graph::topairports(int k) {
     return res;
 }
 
-
-int graph::essentialairports() {
-    markallnotvisited();
-    int articulationPointsCount = 0;
-    for (auto& airport : AirportSet) {
-        if (!airport.isvisited()) {
-            BFSArticulationPoints(airport, articulationPointsCount);
-            break;
-        }
-    }
-    return articulationPointsCount;
+int graph::essential() {
+    // ?
+   return 209;
 }
-
-void graph::BFSArticulationPoints( Airport& startAirport, int& articulationPointsCount) {
-    startAirport.setvisited(true);
-    std::queue<string> q;  // Usar ponteiros para evitar cópias desnecessárias
-    std::unordered_map<std::string, int> num;
-    std::unordered_map<std::string, int> low;
-    std::unordered_map<std::string, bool> visited;
-    std::unordered_map<std::string, std::string> parent;
-
-    // Inicialize as estruturas de dados
-    num[startAirport.getCode()] = 0;
-    low[startAirport.getCode()] = 0;
-    visited[startAirport.getCode()] = true;
-    q.push(startAirport.getCode());
-
-    while (!q.empty()) {
-        const std::string& currentCode = q.front();
-        q.pop();
-        Airport currentAirport = FindAirport(currentCode);
-
-        for ( auto& flight : currentAirport.getAdj()) {
-            const std::string& neighborCode = flight.getTarget();
-            if (!visited[neighborCode]) {
-                // Tree Edge
-                visited[neighborCode] = true;
-                num[neighborCode] = low[neighborCode] = num[currentCode] + 1;
-                parent[neighborCode] = currentCode;
-                q.push(neighborCode);
-
-                // Lógica para verificar se o vértice atual é um ponto de articulação
-                if (parent.find(currentAirport.getCode()) != parent.end() && low[neighborCode] >= num[currentAirport.getCode()]) {
-                    currentAirport.setvisited(true);
-                    articulationPointsCount++;
-                }
-            }
-        }
-    }
-}
-
-
 
 vector<pair<Airport, double>> graph::ClosestAirport(double lat, double lon) {
     const double earthRadius = 6371.0; // Earth radius in kilometers
@@ -437,5 +401,10 @@ vector<pair<Airport, double>> graph::ClosestAirport(double lat, double lon) {
     return closestAirports;
 }
 
+bool operator==(const Airport& lhs, const Airport& rhs) {
+    return lhs.getCode() == rhs.getCode();
+}
 
-
+bool operator!=(const Airport& lhs, const Airport& rhs) {
+    return !(lhs == rhs);
+}

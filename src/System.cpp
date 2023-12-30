@@ -191,9 +191,19 @@ void System::reachabledestinationsmax(string code, int max, int num){
     }
 }
 
-void System::maxdistance(){
-    pair<int, pair<string, string>> res = g.maximumtrip();
-    cout << "The trip with greatest number of stops is from " << res.second.first << " to " << res.second.second << " with " << res.first << " stops" << endl;
+void System::maxdistance() {
+    vector<pair<pair<string, string>, int>> rest = g.BFSLargestFlightCount();
+    int max = 0;
+    for (auto i: rest){
+        if (i.second > max) {
+            max = i.second;
+        }
+}
+for(auto i : rest){
+    if(i.second == max){
+        cout << "The trip with greatest number of stops is from " <<  i.first.first << " to " << i.first.first << " with " << i.second << " stops" << endl;
+        }
+    }
 }
 
 void System::topairports(int k){
@@ -223,6 +233,6 @@ void System::FastConnectionCord(string source, double lat, double lon) {
 }
 
 void System::essentialairports() {
-    int number = g.essentialairports();
+    int number = g.essential();
 cout << "The number of essential airports are: " << number << endl;
 }

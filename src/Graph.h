@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <cmath>
 #include <stack>
+#include <iostream>
 class graph{
 private:
     vector<Airport> AirportSet;
@@ -31,11 +32,10 @@ int reachabledestinationsmax(string code, int max, int num);
 int bfsairportnumber(Airport source, int max);
 int bfscitiesnumber(Airport source, int max);
 int bfscountrynumber(Airport source, int max);
-pair<int, pair<string , string>> maximumtrip();
-pair<int , string> bfsmax(const string&);
+vector<pair<pair<string, string>, int>> BFSLargestFlightCount();
+void BFSWithLevels(Airport startCode, vector<pair<pair<string,string>, int>> distances, int i);
 vector<Airport> topairports(int k);
-int essentialairports();
-void BFSArticulationPoints( Airport& startAirport, int& articulationPointsCount);
+int essential();
 vector<pair<Airport,double>> ClosestAirport(double lat, double lon);
 };
 #endif //PROJETOAED2_GRAPH_H

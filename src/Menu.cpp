@@ -8,8 +8,9 @@ void Menu::start(System system) {
     while (true) {
         cout << endl << "Menu:" << endl;
         cout << "1- Present the best flight option" << endl;
-        cout << "2- Statistics of the network" << endl;
-        cout << "3- More statistics" << endl;
+        cout << "2- Present the best flight option (filters)" << endl;
+        cout << "3- Statistics of the network" << endl;
+        cout << "4- More statistics" << endl;
         cout << "Press a number to continue or press 0 to quit" << endl;
         int choice;  // Corrigindo o nome da variável para "choice".
         cin >> choice;
@@ -26,14 +27,11 @@ void Menu::start(System system) {
                 cout << "Enter the Airport source code:" << endl;
                 string source;
                 cin >> source;
-                cout << "the source was : " << source << endl;
                 cout << "Enter the Airport destination code:" << endl;
-                string destination;  // Corrigindo o nome da variável para "destination".
+                string destination;
                 cin >> destination;
                 system.FastConnection(source, destination);  // Corrigindo o nome da função para FastConnection.
-            }
-
-            else if(subchoise == 2){
+            } else if(subchoise == 2){
                 cout << "Enter the City source name:" << endl;
                 string source;
                 std::getline(std::cin >> std::ws, source);
@@ -55,7 +53,7 @@ void Menu::start(System system) {
                 system.FastConnectionCord(source,lat,lon);
             }
         }
-        else if(choice == 2){
+        else if(choice == 3){
             cout << "1- Global number of airports and number of available flights;" << endl;
             cout << "2- Number of flights out of an airport; and from how many different airlines;" << endl;
             cout << "3- Number of flights per city;" << endl;
@@ -66,6 +64,8 @@ void Menu::start(System system) {
             cout << "8- Number of reachable destinations (airports, cities or countries) from a given airport in a\n"
                     "maximum number of X stops (lay-overs);" << endl;
             cout << "9- Maximum trip and corresponding pair of source-destination airports with the greatest number of stops in between them" << endl;
+            cout << "10- The top K airports with the greatest number of flights" << endl;
+            cout << "11- The essential airpots" << endl;
 
             int subchoise;
             cin >> subchoise;
@@ -127,23 +127,17 @@ void Menu::start(System system) {
                 cin >> subsubchoise;
                 system.reachabledestinationsmax(code, num,subsubchoise);
             }
-            //nao da output
+            //demora mtoooooooo para dar output
             else if(subchoise == 9){
                 system.maxdistance();
             }
-        }
-        else if(choice == 3){
-            cout << "1- The top K airports with the greatest number of flights" << endl;
-            cout << "2- The essential airpots" << endl;
-            int subchoise;
-            cin >> subchoise;
-            if(subchoise == 1){
+            else if(subchoise == 10){
                 cout << "Chose how many airports you want to see (k)" << endl;
                 int k;
                 cin >> k;
                 system.topairports(k);
             }
-            else if(subchoise == 2){
+            else if(subchoise == 11){
                 system.essentialairports();
             }
         }
