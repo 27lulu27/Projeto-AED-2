@@ -16,12 +16,24 @@ private:
     unordered_map<std::string, Airport> airportsMap;        //usado para facilitar o parsing
     unordered_map<std::string, Airline> airlinesMap;
 public:
+    /**
+     * @brief O construtor faz 3 chamadas, cada uma faz o parsing da informação dos ficheiros fornecidos
+     */
     System();
-
+    /**
+     * @brief Faz o parsing das companhias aereas
+     * @param filename = nome do ficheiro
+     */
     void readAirlines(const string &filename);
-
+    /**
+     * @brief Faz o parsing dos aeroportos
+     * @param filename = nome do ficheiro
+     */
     void readAirports(const string &filename);
-
+    /**
+     * @brief Faz o parsing dos voos entre aeroportos
+     * @param filename = nome do ficheiro
+     */
     void readFlights(const string &filename);
 
     void FastConnection(const string& source, const string& dest);
