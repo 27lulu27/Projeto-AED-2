@@ -73,8 +73,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aeae5e687aa86cbf63c39befb0264730a"><td class="memItemLeft" align="right" valign="top"><a id="aeae5e687aa86cbf63c39befb0264730a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Airport</b> (string code, string name, string city, string country, double latitude, double longitude)</td></tr>
+<tr class="memitem:aeae5e687aa86cbf63c39befb0264730a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dd3/classAirport.html#aeae5e687aa86cbf63c39befb0264730a">Airport</a> (string code, string name, string city, string country, double latitude, double longitude)</td></tr>
+<tr class="memdesc:aeae5e687aa86cbf63c39befb0264730a"><td class="mdescLeft">&#160;</td><td class="mdescRight">&#x202A;construtor da classes aeroporto que funciona como um nó no nosso grafo  <a href="../../d4/dd3/classAirport.html#aeae5e687aa86cbf63c39befb0264730a">More...</a><br /></td></tr>
 <tr class="separator:aeae5e687aa86cbf63c39befb0264730a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1369e1d47c87e205f1718b853a66d54"><td class="memItemLeft" align="right" valign="top"><a id="ad1369e1d47c87e205f1718b853a66d54"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>getCode</b> () const</td></tr>
@@ -97,8 +97,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>getLongitude</b> ()
 <tr class="memitem:aff998b99eeff2f3e3f163a1b01bd5074"><td class="memItemLeft" align="right" valign="top"><a id="aff998b99eeff2f3e3f163a1b01bd5074"></a>
 vector&lt; <a class="el" href="../../d0/d59/classFlight.html">Flight</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getAdj</b> () const</td></tr>
 <tr class="separator:aff998b99eeff2f3e3f163a1b01bd5074"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0750d2e206b9356bbb2f1d56cd1de2fa"><td class="memItemLeft" align="right" valign="top"><a id="a0750d2e206b9356bbb2f1d56cd1de2fa"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addFlight</b> (<a class="el" href="../../da/d96/classAirline.html">Airline</a> airline, string target)</td></tr>
+<tr class="memitem:a0750d2e206b9356bbb2f1d56cd1de2fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dd3/classAirport.html#a0750d2e206b9356bbb2f1d56cd1de2fa">addFlight</a> (<a class="el" href="../../da/d96/classAirline.html">Airline</a> airline, string target)</td></tr>
+<tr class="memdesc:a0750d2e206b9356bbb2f1d56cd1de2fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">&#x202A;Adiciona um voo ao vetor adj de modo a que este faça parte do aeroporto em questão.  <a href="../../d4/dd3/classAirport.html#a0750d2e206b9356bbb2f1d56cd1de2fa">More...</a><br /></td></tr>
 <tr class="separator:a0750d2e206b9356bbb2f1d56cd1de2fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7d9ae178f28ab96f376f60fa1263437"><td class="memItemLeft" align="right" valign="top"><a id="ae7d9ae178f28ab96f376f60fa1263437"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setvisited</b> (const bool v)</td></tr>
@@ -125,9 +125,114 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setIndex</b> (int new
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a4b750ead21dcec1d0621f06050783d22"><td class="memItemLeft" align="right" valign="top"><a id="a4b750ead21dcec1d0621f06050783d22"></a>
-vector&lt; <a class="el" href="../../d0/d59/classFlight.html">Flight</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>adj</b></td></tr>
+vector&lt; <a class="el" href="../../d0/d59/classFlight.html">Flight</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dd3/classAirport.html#a4b750ead21dcec1d0621f06050783d22">adj</a></td></tr>
+<tr class="memdesc:a4b750ead21dcec1d0621f06050783d22"><td class="mdescLeft">&#160;</td><td class="mdescRight">&#x202A;vetor que contem todos os voos adjacentes (arestas) que saem deste aeroporto (nó) <br /></td></tr>
 <tr class="separator:a4b750ead21dcec1d0621f06050783d22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aeae5e687aa86cbf63c39befb0264730a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeae5e687aa86cbf63c39befb0264730a">&#9670;&nbsp;</a></span>Airport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Airport::Airport </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>code</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>city</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>country</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>latitude</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>longitude</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>&#x202A;construtor da classes aeroporto que funciona como um nó no nosso grafo </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>&#x202A;= codigo do aeroporto </td></tr>
+    <tr><td class="paramname">name</td><td>&#x202A;= nome do aeroporto </td></tr>
+    <tr><td class="paramname">city</td><td>&#x202A;= cidade da localização do mesmo </td></tr>
+    <tr><td class="paramname">country</td><td>&#x202A;= país onde essa cidade está situada </td></tr>
+    <tr><td class="paramname">latitude</td><td>&#x202A;= primeira coordenada geográfica do mesmo </td></tr>
+    <tr><td class="paramname">longitude</td><td>&#x202A;= segunda coordenada geográfica do mesmo </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0750d2e206b9356bbb2f1d56cd1de2fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0750d2e206b9356bbb2f1d56cd1de2fa">&#9670;&nbsp;</a></span>addFlight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airport::addFlight </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../da/d96/classAirline.html">Airline</a>&#160;</td>
+          <td class="paramname"><em>airline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>target</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>&#x202A;Adiciona um voo ao vetor adj de modo a que este faça parte do aeroporto em questão. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">airline</td><td>&#x202A;= companhia aerea que realiza o voo </td></tr>
+    <tr><td class="paramname">target</td><td>&#x202A;= aeroporto de destino </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="../../db/d80/Airport_8h_source.html">Airport.h</a></li>
 <li>src/Airport.cpp</li>

@@ -26,6 +26,10 @@ var menudata={children:[
 {text:"\u202AMain Page",url:"index.html"},
 {text:"\u202AClasses",url:"annotated.html",children:[
 {text:"\u202AClass List",url:"annotated.html"},
-{text:"\u202AClass Index",url:"classes.html"}]},
+{text:"\u202AClass Index",url:"classes.html"},
+{text:"\u202AClass Members",url:"functions.html",children:[
+{text:"\u202AAll",url:"functions.html"},
+{text:"\u202AFunctions",url:"functions_func.html"},
+{text:"\u202AVariables",url:"functions_vars.html"}]}]},
 {text:"\u202AFiles",url:"files.html",children:[
 {text:"\u202AFile List",url:"files.html"}]}]}
