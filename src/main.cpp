@@ -1,8 +1,17 @@
 #include <iostream>
 #include "Menu.h"
 int main() {
-    Menu menu; // Crie uma instância de Menu
-    System system; // Crie uma instância de System
-    menu.start(system); // Inicie o menu passando a instância de System
+    /**
+     * @brief Cria uma instância do Menu
+     */
+    Menu menu;
+    /**
+     * @brief Cria uma instância de System
+     */
+    System system;
+    /**
+     * @brief Inicia o menu passando a instância de System
+     */
+    menu.start(system);
     return 0;
 }
