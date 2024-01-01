@@ -17,16 +17,15 @@ void System::readAirlines(const std::string& filename) {
         cerr << "Erro ao abrir o arquivo: " << filename << endl;
         return;
     }
-
     while (getline(file, line)) {
         istringstream s(line);
         string code, name, callsign, country;
-        if (getline(s, code, ',') && getline(s, name, ',') && getline(s, callsign, ',') && getline(s, country, ',')) {
+        if (getline(s, code, ',') && getline(s, name, ',') &&
+        getline(s, callsign, ',') && getline(s, country, ',')) {
             Airline airline(code, name, callsign, country);
             airlinesMap[code] = airline;
         }
     }
-
     file.close();
 }
 
@@ -44,7 +43,8 @@ void System::readAirports(const std::string& filename) {
         string code, name, city, country;
         double latitude, longitude;
         char comma;
-        if (getline(s, code, ',') && getline(s, name, ',') && getline(s, city, ',') && getline(s, country, ',') &&
+        if (getline(s, code, ',') && getline(s, name, ',') &&
+        getline(s, city, ',') && getline(s, country, ',') &&
             s >> latitude >> comma && s >> longitude) {
             Airport airport(code, name, city, country, latitude, longitude);
             airportsMap[code] = airport;
@@ -65,7 +65,8 @@ void System::readFlights(const std::string& filename) {
     while (getline(file, line)) {
         istringstream s(line);
         string source, target, airlineCode;
-        if (getline(s,source, ',') && getline(s, target, ',') && getline(s, airlineCode, ',')) {
+        if (getline(s,source, ',') && getline(s, target, ',')
+        && getline(s, airlineCode, ',')) {
             auto airportIt = airportsMap.find(source);
             if (airportIt != airportsMap.end()) {
                 auto airlineIt = airlinesMap.find(airlineCode);
@@ -136,7 +137,7 @@ void System::FastConnection(const std::string& source, const std::string& dest) 
 }
 
 void System::NumberofAandF() {
-    cout << "Number of Airports: " << airportsMap.size() - 1 << endl; //cabeçario -1
+    cout << "Number of Airports: " << airportsMap.size() << endl;
     cout << "Numbet of Flights: " << flights << endl;
 
 }
@@ -147,12 +148,12 @@ g.NumberofFofAir(code);
 
 void System::NumberofFofCity(string city) {
 int number = g.NumberofFofCity(city);
-cout << "The number of flights of" << city <<" is: " << number << endl;
+cout << "The number of flights of " << city <<" is: " << number << endl;
 }
 
-void System::NumberofFofAirline(string city) {
-    int number = g.NumberofFofAirline(city);
-    cout << "The number of flights of a airline is: " << number << endl;
+void System::NumberofFofAirline(string airlinecode) {
+    int number = g.NumberofFofAirline(airlinecode);
+    cout << "The number of flights of a "<< airlinecode << " is: " << number << endl;
 }
 
 void System::NumberofDContriesairport(string code){
@@ -179,7 +180,7 @@ void System::avaliabledestinations(string code, int num) {
 }
 
 void System::reachabledestinationsmax(string code, int max, int num){
-    int number = g.reachabledestinationsmax(code, max,num);
+    int number = g.reachabledestinationsmax(code, max, num);
     if(num == 1){
         cout << "The number of reachable airports you can go with in a maximum number of " << max << " stops with this airports ("<< code << ") is " << number << endl;
     }

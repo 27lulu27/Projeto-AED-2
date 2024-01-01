@@ -58,3 +58,13 @@ bool Airport::isProcessed() {
 void Airport::setProcessed(const bool k){
     processed = k;
 }
+
+int Airport::getIndex() const {
+    return index;
+}
+
+void Airport::setIndex(int newIndex) {
+    index = newIndex;
+
+}
+

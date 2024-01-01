@@ -12,7 +12,7 @@ using namespace std;
 class System{
 private:
     graph g;
-    int flights; //quantidade de voos
+    int flights = 0;                                        //quantidade de voos
     unordered_map<std::string, Airport> airportsMap;        //usado para facilitar o parsing
     unordered_map<std::string, Airline> airlinesMap;
 public:

@@ -10,7 +10,6 @@ void Menu::start(System system) {
         cout << "1- Present the best flight option" << endl;
         cout << "2- Present the best flight option (filters)" << endl;
         cout << "3- Statistics of the network" << endl;
-        cout << "4- More statistics" << endl;
         cout << "Press a number to continue or press 0 to quit" << endl;
         int choice;  // Corrigindo o nome da variável para "choice".
         cin >> choice;
@@ -120,9 +119,9 @@ void Menu::start(System system) {
                 cout << "Enter the Number of stops" << endl;
                 int num;
                 cin >> num;
-                cout << "1- Number of airports available in a maximum number of "  << num << "stops" << endl;
-                cout << "2- Number of cities available in a maximum number of " << num << "stops" << endl;
-                cout << "3- Number of countries available in a maximum number of" << num << "stops" << endl;
+                cout << "1- Number of airports available in a maximum number of "  << num << " stops" << endl;
+                cout << "2- Number of cities available in a maximum number of " << num << " stops" << endl;
+                cout << "3- Number of countries available in a maximum number of " << num << " stops" << endl;
                 int subsubchoise;
                 cin >> subsubchoise;
                 system.reachabledestinationsmax(code, num,subsubchoise);

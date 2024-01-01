@@ -16,6 +16,7 @@ class Airport{
         double latitude, longitude;
         bool visited, processed;
         int numberofflights = 0;
+        int index;
 public:
         vector<Flight> adj;
         Airport();
@@ -33,6 +34,8 @@ public:
         int getNumberOfFlights();
         bool isProcessed();
         void setProcessed(const bool k);
+        int getIndex() const;
+        void setIndex(int newIndex);
 };
 
 #endif

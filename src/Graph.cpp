@@ -202,7 +202,9 @@ int graph::reachabledestinationsmax(string code, int max, int num) {
     else if(num == 2){
         return bfscitiesnumber(air, max);
     }
+    else if(num == 3){
     return bfscountrynumber(air, max);
+    }
 }
 
 
@@ -373,9 +375,69 @@ vector<Airport> graph::topairports(int k) {
 }
 
 int graph::essential() {
-    // ?
-   return 209;
+   initializeIndices();
+   return findArticulationPoints();
 }
+void graph::initializeIndices() {
+    int currentIndex = 0;
+    for (auto& airport : AirportSet) {
+        airport.setIndex(currentIndex);
+        currentIndex++;
+    }
+}
+int graph::dfs_art(const Airport& airport, vector<int>& num, vector<int>& low, stack<int>& S, vector<bool>& visited) {
+    static int index = 0;
+    int children = 0;
+    int airportIndex = airport.getIndex();  // Usar o índice do aeroporto diretamente
+    num[airportIndex] = low[airportIndex] = ++index;
+    S.push(airportIndex);
+    visited[airportIndex] = true;
+
+    int articulationPoints = 0;  // Contador de pontos de articulação
+
+    for (auto& flight : airport.getAdj()) {
+        int targetIndex = airportMap[flight.getTarget()].getIndex();
+        if (!num[targetIndex]) {
+            children++;
+            articulationPoints += dfs_art(airportMap[flight.getTarget()], num, low, S, visited);
+            low[airportIndex] = min(low[airportIndex], low[targetIndex]);
+            if (low[targetIndex] >= num[airportIndex]) {
+                cout << airport.getCode() << " is an articulation point\n";
+                articulationPoints++;
+            }
+        } else if (visited[targetIndex]) {
+            low[airportIndex] = min(low[airportIndex], num[targetIndex]);
+        }
+    }
+
+    if (children > 1 && !num[airportIndex]) {
+        cout << airport.getCode() << " is an articulation point\n";
+        articulationPoints++;
+    }
+
+    S.pop();
+
+    return articulationPoints;
+}
+
+int graph::findArticulationPoints() {
+    vector<int> num(AirportSet.size(), 0);
+    vector<int> low(AirportSet.size(), 0);
+    vector<bool> visited(AirportSet.size(), false);
+    stack<int> S;
+    int totalArticulationPoints = 0;
+
+    for (const Airport& airport : AirportSet) {
+        int airportIndex = airport.getIndex();
+        if (num[airportIndex] == 0) {
+            totalArticulationPoints += dfs_art(airport, num, low, S, visited);
+        }
+    }
+
+    return  totalArticulationPoints;}
+
+
+
 
 vector<pair<Airport, double>> graph::ClosestAirport(double lat, double lon) {
     const double earthRadius = 6371.0; // Earth radius in kilometers
@@ -399,6 +461,10 @@ vector<pair<Airport, double>> graph::ClosestAirport(double lat, double lon) {
     }
 
     return closestAirports;
+}
+
+int graph::getnumberofairports() {
+    return AirportSet.size();
 }
 
 bool operator==(const Airport& lhs, const Airport& rhs) {

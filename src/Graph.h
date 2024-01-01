@@ -13,6 +13,9 @@ private:
     vector<Airport> AirportSet;
     unordered_map<string, Airport> airportMap; //ajudar nas statistics
 public:
+void initializeIndices();
+int getIndex(const string& code) const;
+int getnumberofairports();
 Airport FindAirport(const string code) const;
 void newAirport(const Airport a);
 void addFlight(const string source, const string dest, Airline airline);
@@ -37,5 +40,7 @@ void BFSWithLevels(Airport startCode, vector<pair<pair<string,string>, int>> dis
 vector<Airport> topairports(int k);
 int essential();
 vector<pair<Airport,double>> ClosestAirport(double lat, double lon);
+int dfs_art(const Airport& airport, vector<int>& num, vector<int>& low, stack<int>& S, vector<bool>& visited);
+int findArticulationPoints();
 };
 #endif //PROJETOAED2_GRAPH_H
